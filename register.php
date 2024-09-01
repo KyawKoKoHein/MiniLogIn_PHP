@@ -89,8 +89,8 @@
     {
         $upperStatus = false;
         $lowerStatus = false;
-        $numberStatus = false;
         $specialStatus = false;
+        $numberStatus = false;
 
         if (preg_match('/[A-Z]/', $password)) {
             $upperStatus = true;
@@ -119,29 +119,30 @@
     if (isset($_POST['register'])) {
         $name = $_POST['name'];
         $email = $_POST['email'];
-        $phone = $_POST['phone'];
         $password = $_POST['password'];
-        $cpassword = $_POST['cpassword'];
-        if ($name != "" && $email != "" && $password != "" && $cpassword != "" && $phone != "") {
-            if (strlen($password) >= 6 && strlen($cpassword) >= 6) {
-                if ($password == $cpassword) {
+        $cPassword = $_POST['cpassword'];
+        if ($name != "" || $email != "" || $password != "" || $cPassword != "") {
+            if (strlen($password) >= 6 && strlen($cPassword) >= 6) {
+                if ($password == $cPassword) {
+
                     $status = checkStrongPassword($password);
-                    if ($status) {
-                        $_SESSION["email"] = $email;
-                        $_SESSION["password"] = password_hash($password, PASSWORD_BCRYPT);
+
+                    if($status) {
+                        $_SESSION['email'] = $email;
+                        $_SESSION['password'] = password_hash($password, PASSWORD_BCRYPT);
                         echo "Register Success";
                     } else {
-                        echo '<div style="color: red; font-weight: bold;">Your Password is not strong!</div>';
+                        echo "Your password is not strong";
                     }
-                } else {
-                    echo "Password and Confirm password must be same. Try Again";
-                }
 
+                } else {
+                    echo "Password and Confirm password must be same! Type Again.";
+                }
             } else {
-                echo "password's length must be greater than 6";
+                echo "Password's length must be greater than 6.";
             }
         } else {
-            echo "Name or Email or Phone or Password or Confirm Password is not blank!";
+            echo "Need to Fill!";
         }
     }
 

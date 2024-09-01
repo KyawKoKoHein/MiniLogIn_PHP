@@ -70,13 +70,11 @@
     $userPassword = $_POST['password'];
 
     if ($userEmail == $_SESSION['email'] && password_verify($userPassword, $_SESSION['password'])) {
-      echo "Log In Success";
+      echo "Login Success";
     } else {
-      echo "Log In Fail";
+      echo "Login Fail";
     }
-
   }
-
 
 
   ?>
